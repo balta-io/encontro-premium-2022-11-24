@@ -1,0 +1,42 @@
+﻿@using MudBlazor
+@inherits LayoutComponentBase
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_myCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        UTM Builder
+        <MudSpacer />
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" />
+    </MudAppBar>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code{
+
+    readonly MudTheme _myCustomTheme = new()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Green.Darken1,
+            AppbarBackground = Colors.Green.Default,
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Green.Lighten1,
+            AppbarBackground = Colors.Green.Default,
+        },
+
+        LayoutProperties = new LayoutProperties()
+        {
+            DrawerWidthLeft = "260px",
+            DrawerWidthRight = "300px"
+        }
+    };
+    
+    private bool _isDarkMode;
+}

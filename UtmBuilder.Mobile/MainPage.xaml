@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UtmBuilder.Mobile.MainPage"
+             Title="UTM Builder">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Entry Keyboard="Url"
+                   Placeholder="The full website URL"
+                   Text="{Binding WebsiteUrl, Mode=TwoWay}"/>
+
+            <Entry Keyboard="Url"
+                   Placeholder="The referrer (e.g. google, newsletter)"
+                   Text="{Binding Source, Mode=TwoWay}"/>
+
+            <Entry Keyboard="Url"
+                   Placeholder="Marketing medium (e.g. cpc, banner, email)"
+                   Text="{Binding Medium, Mode=TwoWay}"/>
+
+            <Entry Keyboard="Url"
+                   Placeholder="Product, promo code, or slogan (e.g. spring_sale) One of campaign name or campaign id are required"
+                   Text="{Binding Name, Mode=TwoWay}"/>
+
+            <Entry Keyboard="Url"
+                   Placeholder="The ads campaign id"
+                   Text="{Binding Id, Mode=TwoWay}"/>
+
+            <Entry Keyboard="Url"
+                   Placeholder="Identify the paid keywords"
+                   Text="{Binding Term, Mode=TwoWay}"/>
+
+            <Entry Keyboard="Url"
+                   Placeholder="Use to differentiate ads"
+                   Text="{Binding Content, Mode=TwoWay}"/>
+
+            <Button Text="Copy to Clipboard"
+                    Command="{Binding CopyToClipboardCommand}"/>
+
+            <Label FontSize="12"
+                   FontAttributes="Italic"
+                   HorizontalTextAlignment="Center"
+                   Text="{Binding Url, Mode=TwoWay}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,91 @@
+﻿@page "/"
+@using UtmBuilder.Pwa.ViewModels
+@using MudBlazor
+
+@inject IDialogService DialogService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>UTM Builder</PageTitle>
+<br>
+<br>
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="12" sm="7">
+        <MudPaper Class="pa-4">
+            <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator/>
+                <MudTextField
+                    Label="Website URL"
+                    HelperText="The full website URL (e.g. https://www.example.com)"
+                    @bind-Value="_model.WebsiteUrl"
+                    For="@(() => _model.WebsiteUrl)"/>
+
+                <MudTextField
+                    Label="Campaign ID"
+                    HelperText="The ads campaign id."
+                    @bind-Value="_model.Id"
+                    For="@(() => _model.Id)"/>
+
+                <MudTextField
+                    Label="Campaign Source"
+                    HelperText="The referrer (e.g. google, newsletter)"
+                    @bind-Value="_model.Source"
+                    For="@(() => _model.Source)"/>
+
+                <MudTextField
+                    Label="Campaign Medium"
+                    HelperText="Marketing medium (e.g. cpc, banner, email)"
+                    @bind-Value="_model.Medium"
+                    For="@(() => _model.Medium)"/>
+
+                <MudTextField
+                    Label="Campaign Name"
+                    HelperText="Product, promo code, or slogan (e.g. spring_sale) One of campaign name or campaign id are required."
+                    @bind-Value="_model.Name"
+                    For="@(() => _model.Name)"/>
+
+                <MudTextField
+                    Label="Campaign Term"
+                    HelperText="Identify the paid keywords"
+                    @bind-Value="_model.Term"
+                    For="@(() => _model.Term)"/>
+
+                <MudTextField
+                    Label="Campaign Content"
+                    HelperText="Use to differentiate ads"
+                    @bind-Value="_model.Content"
+                    For="@(() => _model.Content)"/>
+
+                <br>
+
+                <MudAlert Icon="@Icons.Material.Filled.Link" Severity="Severity.Normal" Class="overflow-alert">@_model.Url</MudAlert>
+
+                <br>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="CopyToClipboard">
+                    Copy to Clipboard
+                </MudButton>
+            </EditForm>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+
+@code {
+    private readonly GenerateUtmViewModel _model = new();
+    bool _success;
+
+    private void OnValidSubmit(EditContext context)
+    {
+        _success = true;
+        StateHasChanged();
+    }
+
+    async Task CopyToClipboard()
+    {
+        await JSRuntime.InvokeVoidAsync("copyToClipboard", _model.Url);
+        await DialogService.ShowMessageBox(
+            "Copied...",
+            "URL copied to clipboard",
+            yesText: "OK");
+    }
+
+}

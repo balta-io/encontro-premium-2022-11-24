@@ -1,0 +1,59 @@
+@page "~/generate"
+@model UrlBuilder.Site.Pages.UtmGeneratorPage
+
+<form id="form" method="post" action="~/generate">
+    <div class="mb-3">
+        <label asp-for="Input.WebsiteUrl" class="form-label"></label>
+        <input class="form-control" asp-for="Input.WebsiteUrl"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Id" class="form-label"></label>
+        <input class="form-control" asp-for="Input.Id"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Source" class="form-label"></label>
+        <input class="form-control" asp-for="Input.Source"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Medium" class="form-label"></label>
+        <input class="form-control" asp-for="Input.Medium"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Name" class="form-label"></label>
+        <input class="form-control" asp-for="Input.Name"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Term" class="form-label"></label>
+        <input class="form-control" asp-for="Input.Term"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Content" class="form-label"></label>
+        <input class="form-control" asp-for="Input.Content"/>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Input.Url))
+    {
+        <div class="alert alert-primary" style="overflow-y: scroll" role="alert">
+            <small>
+                @Model.Input.Url
+            </small>
+        </div>
+    }
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <button type="submit" class="btn btn-primary">Generate URL</button>
+
+
+</form>
+
+
+@section Scripts
+{
+    <partial name="Shared/_ValidationScriptsPartial"/>
+}
